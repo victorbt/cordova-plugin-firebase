@@ -9,6 +9,9 @@ BTC: 1JuXhHMCPHXT2fDfSRUTef9TpE2D67sc9f
 Thank you for your support!
 
 ## in this fork
+
+### In this branch, the plugin is compatible with intercom-cordova
+
 ### verifyPhoneNumber (Android only)
 
 Request a verificationId and send a SMS with a verificationCode.

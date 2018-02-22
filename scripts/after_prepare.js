@@ -135,7 +135,8 @@ module.exports = function(context) {
     copyKey(PLATFORM.IOS);
   }
   if (platforms.indexOf('android') !== -1 && directoryExists(ANDROID_DIR)) {
-    console.log('Preparing Firebase on Android');
-    copyKey(PLATFORM.ANDROID, updateStringsXml)
+    //console.log('Preparing Firebase on Android');
+    // done by intercom plugin
+    //copyKey(PLATFORM.ANDROID, updateStringsXml)
   }
 };
