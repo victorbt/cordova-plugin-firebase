@@ -16,10 +16,14 @@ import android.content.ContentResolver;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import io.intercom.android.sdk.push.IntercomPushClient;
+
 import java.util.Map;
 import java.util.Random;
 
 public class FirebasePluginMessagingService extends FirebaseMessagingService {
+
+    private final IntercomPushClient intercomPushClient = new IntercomPushClient();
 
     private static final String TAG = "FirebasePlugin";
 
@@ -73,10 +77,16 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
         Log.d(TAG, "Notification Message Body/Text: " + text);
         Log.d(TAG, "Notification Message Sound: " + sound);
 
+        Map message = remoteMessage.getData();
+        if (intercomPushClient.isIntercomPush(message)) {
+          intercomPushClient.handlePush(getApplication(), message);
+        } else {
+
         // TODO: Add option to developer to configure if show notification when app on foreground
         if (!TextUtils.isEmpty(text) || !TextUtils.isEmpty(title) || (!remoteMessage.getData().isEmpty())) {
             boolean showNotification = (FirebasePlugin.inBackground() || !FirebasePlugin.hasNotificationsCallback()) && (!TextUtils.isEmpty(text) || !TextUtils.isEmpty(title));
             sendNotification(id, title, text, remoteMessage.getData(), showNotification, sound);
+        }
         }
 
     }

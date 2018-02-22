@@ -5,8 +5,11 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
+import io.intercom.android.sdk.push.IntercomPushClient;
 
 public class FirebasePluginInstanceIDService extends FirebaseInstanceIdService {
+
+    private final IntercomPushClient intercomPushClient = new IntercomPushClient();
 
     private static final String TAG = "FirebasePlugin";
 
@@ -21,6 +24,7 @@ public class FirebasePluginInstanceIDService extends FirebaseInstanceIdService {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d(TAG, "Refreshed token: " + refreshedToken);
 
+        intercomPushClient.sendTokenToIntercom(getApplication(), refreshedToken);
         FirebasePlugin.sendToken(refreshedToken);
     }
 }
