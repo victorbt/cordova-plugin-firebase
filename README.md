@@ -17,6 +17,9 @@ Paypal: https://paypal.me/arnesson
 
 Thank you for your support!
 
+## In this fork
+- Twilio push notification integration
+
 ## Supported Cordova Versions
 - cordova: `>= 6`
 - cordova-android: `>= 6.3`
