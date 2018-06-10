@@ -47,6 +47,8 @@
 - (BOOL)application:(UIApplication *)application swizzledDidFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self application:application swizzledDidFinishLaunchingWithOptions:launchOptions];
 
+    [application registerForRemoteNotifications];
+
     if (![FIRApp defaultApp]) {
         [FIRApp configure];
     }
@@ -100,6 +102,11 @@
             NSLog(@"InstanceID token: %@", refreshedToken);
         }
     }];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"Received APNS Token");
+    [[FIRMessaging messaging] setAPNSToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
