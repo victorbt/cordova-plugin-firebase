@@ -88,6 +88,13 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
             if (TextUtils.isEmpty(text)) {
                 text = data.get("body");
             }
+
+            // Twilio message
+            if (data.containsKey("twi_message_type") && data.get("twi_message_type").contentEquals("twilio.channel.new_message")) {
+                title = data.get("author");
+                text = data.get("twi_body");
+                sound = data.get("twi_sound");
+            }
         }
 
         if (TextUtils.isEmpty(id)) {
@@ -170,7 +177,7 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                 int accentID = getResources().getIdentifier("accent", "color", getPackageName());
                 notificationBuilder.setColor(getResources().getColor(accentID, null));
-                
+
             }
 
             Notification notification = notificationBuilder.build();
