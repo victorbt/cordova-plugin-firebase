@@ -49,8 +49,8 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
      */
     @Override
     public void onNewToken(String token) {
-        Log.d(TAG, "New FCM Token: " + refreshedToken);
-        FirebasePlugin.sendToken(refreshedToken);
+        Log.d(TAG, "New FCM Token: " + token);
+        FirebasePlugin.sendToken(token);
     }
 
     /**
