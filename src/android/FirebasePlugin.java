@@ -99,7 +99,7 @@ public class FirebasePlugin extends CordovaPlugin {
                     @Override
                     public void onSuccess(InstanceIdResult instanceIdResult) {
                         String token = instanceIdResult.getToken();
-                        Log.d(TAG, "FCM Token initialized: ", token);
+                        Log.d(TAG, "FCM Token initialized: " + token);
                         intercomPushClient.sendTokenToIntercom(this.cordova.getActivity().getApplication(), token);
                         sendToken(token);
                     }
