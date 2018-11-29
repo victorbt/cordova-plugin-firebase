@@ -1,6 +1,7 @@
 package org.apache.cordova.firebase;
 
 import android.app.NotificationManager;
+import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -76,6 +77,7 @@ public class FirebasePlugin extends CordovaPlugin {
     protected void pluginInitialize() {
         final Context context = this.cordova.getActivity().getApplicationContext();
         final Bundle extras = this.cordova.getActivity().getIntent().getExtras();
+        final Application application = this.cordova.getActivity().getApplication();
         this.cordova.getThreadPool().execute(new Runnable() {
             public void run() {
                 Log.d(TAG, "Starting Firebase plugin");
@@ -100,7 +102,7 @@ public class FirebasePlugin extends CordovaPlugin {
                     public void onSuccess(InstanceIdResult instanceIdResult) {
                         String token = instanceIdResult.getToken();
                         Log.d(TAG, "FCM Token initialized: " + token);
-                        intercomPushClient.sendTokenToIntercom(this.cordova.getActivity().getApplication(), token);
+                        intercomPushClient.sendTokenToIntercom(application, token);
                         sendToken(token);
                     }
                 });
