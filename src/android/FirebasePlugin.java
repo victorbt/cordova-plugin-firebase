@@ -56,6 +56,8 @@ import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import io.intercom.android.sdk.push.IntercomPushClient;
+
 public class FirebasePlugin extends CordovaPlugin {
 
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -67,6 +69,8 @@ public class FirebasePlugin extends CordovaPlugin {
     private static ArrayList<Bundle> notificationStack = null;
     private static CallbackContext notificationCallbackContext;
     private static CallbackContext tokenRefreshCallbackContext;
+
+    private final IntercomPushClient intercomPushClient = new IntercomPushClient();
 
     @Override
     protected void pluginInitialize() {
@@ -96,6 +100,7 @@ public class FirebasePlugin extends CordovaPlugin {
                     public void onSuccess(InstanceIdResult instanceIdResult) {
                         String token = instanceIdResult.getToken();
                         Log.d(TAG, "FCM Token initialized: ", token);
+                        intercomPushClient.sendTokenToIntercom(this.cordova.getActivity().getApplication(), token);
                         sendToken(token);
                     }
                 });
